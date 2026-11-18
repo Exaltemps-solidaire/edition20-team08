@@ -93,6 +93,8 @@ L'écran "Qui êtes-vous ?" (persona, requis par le PRD) est reporté après le 
 
 **Replanification en fin d'itération 2 (2026-11-18)** — temps restant annoncé : ~15 minutes. ✂️ Ce temps ne couvre plus codage + publication + tour de test de l'équipe pour une itération complète : l'itération 3 n'est pas lancée dans ce build. Le temps restant sert à stabiliser l'existant pour le pitch plutôt qu'à ajouter du code. L'itération 3 reste prioritaire pour une prochaine session.
 
+**`/planifier-iterations` rejoué (2026-11-18)** — temps restant confirmé : ~15 minutes ; tour de test de l'équipe : 5 minutes. Capacité minimale pour une itération = 10 (codage max) + 5 (publication) + 5 (test) = 20 minutes. 15 < 20 : **aucune itération 3 n'est découpée dans ce build.** Dernière itération déjà livrée (itération 2) : le temps restant sert à la stabilisation et à la préparation du pitch, pas à du code nouveau — conforme à la règle « quand le temps restant ne permet plus qu'une itération, elle sert à stabiliser ce qui sera montré au pitch » (ici, il ne permet même plus une itération complète avec tour de test, donc on s'arrête sur l'existant).
+
 ## À venir (liste ordonnée, à détailler au fil de l'eau)
 
 1. Détail du poste : répartition mois par mois, taux de couverture, date de falaise — couvre directement l'hypothèse mesurée de l'équipe (équivalence chiffrable en 1 session). Candidat naturel pour l'itération 3 d'une prochaine session.
