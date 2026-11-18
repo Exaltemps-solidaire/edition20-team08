@@ -129,3 +129,13 @@
   background: #fdecea;
   color: #b02a18;
 }
+
+.lienProjet {
+  color: #004c9a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lienProjet:hover {
+  text-decoration: underline;
+}

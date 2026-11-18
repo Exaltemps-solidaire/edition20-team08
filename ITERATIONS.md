@@ -52,6 +52,8 @@ L'écran "Qui êtes-vous ?" (persona, requis par le PRD) est reporté après le 
     - `.env.example`, `DEPLOIEMENT.md`, `podman-compose.yml` — contrat de déployabilité et recette de déploiement (critères 2 et 3).
     - `e2e/demo.spec.ts` — étape de démo ajoutée (hors DoD).
 
+**Itération 2 démarrée le 2026-11-18 17:36** — temps restant annoncé : ~40 minutes ; aucun retour de l'équipe sur l'itération 1 à intégrer.
+
 ## Itération 2 : Le détail d'un projet affiche le coût réel par poste et la quote-part de chaque financeur
 
 - **Dans le périmètre** :
@@ -74,7 +76,20 @@ L'écran "Qui êtes-vous ?" (persona, requis par le PRD) est reporté après le 
   - ajustement du routeur frontend si nécessaire
 - **Tests unitaires prévus** : 1 à 3, sur le calcul/la détection "somme des quotes-parts > 100 %" (logique métier, pas du balisage).
 - **Étapes ajoutées à la démo (`e2e/demo.spec.ts`)** : depuis la vue globale, cliquer sur un projet, vérifier que le détail (postes + quotes-parts) s'affiche.
-- **Bilan** : _à remplir en fin d'itération (durée de codage réelle, dépassement éventuel, fait, reporté, modifications fichier par fichier)_
+- **Bilan** :
+  - **Durée de codage réelle** : 2 minutes (aucun dépassement).
+  - **Critères d'acceptation** : les 3 sont satisfaits — clic sur un projet → écran détail avec postes et coût réel ; le cas > 100 % est démontré en vrai (poste "Intervenant pédagogique" du projet "Changer les regards", 105 %, affiché en rouge "— dépasse 100 %") distinct du cas ≤ 100 % (vert) ; le lien "←" ramène à la vue globale.
+  - **Reporté** : rien.
+  - **Ce que le harnais a bloqué ou refusé** : rien — aucune borne de déployabilité, `npm test` passait (9 tests au total, dont 3 nouveaux sur `quotePartDepassee`).
+  - **Remarque hors DoD** : `BASE_URL=http://localhost:8080 npm run demo` échoue sur cette VM pour une raison d'environnement (librairie système `libnspr4.so` manquante pour Chromium headless), sans rapport avec le code applicatif. Non bloquant, à corriger si le temps le permet (installer les dépendances système de Playwright).
+  - **Modifications** :
+    - `frontend/src/app/projets.ts` — type `Poste`/`Financeur`, données de postes et financeurs par projet, `sommeQuotesParts()` et `quotePartDepassee()` (logique des critères 1 et 2).
+    - `frontend/src/app/projets.test.ts` — 3 tests Vitest sur `quotePartDepassee()` (= 100 %, < 100 %, > 100 %).
+    - `frontend/src/app/projets/[id]/page.tsx` (nouveau) — écran "Détail du projet" en route dynamique statique (`generateStaticParams` + `dynamicParams = false`, requis par l'export statique Next).
+    - `frontend/src/app/projets/[id]/page.module.css` (nouveau) — styles des cartes de poste, pastilles financeur, signal visuel ok/dépassé.
+    - `frontend/src/app/page.tsx` — nom de projet devenu un lien vers `/projets/[id]`.
+    - `frontend/src/app/page.module.css` — style du lien ajouté.
+    - `e2e/demo.spec.ts` — étape de démo ajoutée (hors DoD).
 
 ## À venir (liste ordonnée, à détailler au fil de l'eau)
 

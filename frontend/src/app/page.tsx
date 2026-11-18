@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./page.module.css";
 import { projets, statutCouverture, type StatutCouverture } from "./projets";
 
@@ -59,7 +60,11 @@ export default function Home() {
               const statut = statutCouverture(projet.tauxCouverture);
               return (
                 <tr key={projet.id}>
-                  <td>{projet.nom}</td>
+                  <td>
+                    <Link href={`/projets/${projet.id}`} className={styles.lienProjet}>
+                      {projet.nom}
+                    </Link>
+                  </td>
                   <td>{projet.periode}</td>
                   <td>{projet.nombrePostes}</td>
                   <td>{projet.nombreFinanceurs}</td>

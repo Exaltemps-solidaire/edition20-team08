@@ -12,4 +12,10 @@ test("Démo : le cas passant", async ({ page }) => {
     await expect(page.getByRole("table")).toBeVisible();
     await expect(page.getByText("Déploiement Carillon – Île-de-France")).toBeVisible();
   });
+
+  await test.step("Je consulte le détail d'un projet", async () => {
+    await page.getByRole("link", { name: "Déploiement Carillon – Île-de-France" }).click();
+    await expect(page.getByText("Coordinatrice de terrain")).toBeVisible();
+    await expect(page.getByText("Ville de Paris · 100 %")).toBeVisible();
+  });
 });
