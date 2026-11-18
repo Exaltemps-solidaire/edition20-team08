@@ -91,9 +91,11 @@ L'écran "Qui êtes-vous ?" (persona, requis par le PRD) est reporté après le 
     - `frontend/src/app/page.module.css` — style du lien ajouté.
     - `e2e/demo.spec.ts` — étape de démo ajoutée (hors DoD).
 
+**Replanification en fin d'itération 2 (2026-11-18)** — temps restant annoncé : ~15 minutes. ✂️ Ce temps ne couvre plus codage + publication + tour de test de l'équipe pour une itération complète : l'itération 3 n'est pas lancée dans ce build. Le temps restant sert à stabiliser l'existant pour le pitch plutôt qu'à ajouter du code. L'itération 3 reste prioritaire pour une prochaine session.
+
 ## À venir (liste ordonnée, à détailler au fil de l'eau)
 
-1. Détail du poste : répartition mois par mois, taux de couverture, date de falaise — couvre directement l'hypothèse mesurée de l'équipe (équivalence chiffrable en 1 session). Candidat naturel pour l'itération 3, à confirmer avec le temps réellement restant après l'itération 2.
+1. Détail du poste : répartition mois par mois, taux de couverture, date de falaise — couvre directement l'hypothèse mesurée de l'équipe (équivalence chiffrable en 1 session). Candidat naturel pour l'itération 3 d'une prochaine session.
 2. Écran "Qui êtes-vous ?" (choix de persona sans connexion, bouton de changement de rôle) — à introduire quand l'app commence à distinguer ce que chaque rôle peut voir.
 3. Brancher la vue globale et le détail projet sur de vraies données (API + stockage), au lieu du codé en dur.
 4. Nouveau projet : formulaire de saisie (budget, financeurs, quotes-parts, postes, coûts), blocage si la somme dépasse 100 %.
