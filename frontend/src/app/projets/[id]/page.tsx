@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
-import { projets, quotePartDepassee, sommeQuotesParts } from "../../projets";
+import { projets, quotePartDepassee, sommeQuotesParts, statutFalaise } from "../../projets";
+
+const styleFalaise: Record<string, string> = {
+  ok: styles.falaiseOk,
+  alerte: styles.falaiseAlerte,
+  urgent: styles.falaiseUrgent,
+};
 
 export const dynamicParams = false;
 
@@ -35,6 +41,12 @@ export default async function DetailProjet({
         {projet.postes.map((poste) => {
           const somme = sommeQuotesParts(poste);
           const depassee = quotePartDepassee(poste);
+          const falaise = statutFalaise(poste.dateFalaise);
+          const dateFormatee = new Date(poste.dateFalaise).toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          });
           return (
             <div key={poste.id} className={styles.posteCard}>
               <div className={styles.posteHeader}>
@@ -59,6 +71,9 @@ export default async function DetailProjet({
               </div>
               <div className={depassee ? styles.sommeDepassee : styles.sommeOk}>
                 Total des quotes-parts : {somme} %{depassee ? " — dépasse 100 %" : ""}
+              </div>
+              <div className={`${styles.pillFalaise} ${styleFalaise[falaise]}`}>
+                Date de falaise → {dateFormatee}
               </div>
             </div>
           );

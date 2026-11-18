@@ -117,3 +117,27 @@
   color: #b02a18;
   margin-top: 10px;
 }
+
+.pillFalaise {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.falaiseOk {
+  background: #e6f4ea;
+  color: #2d7a45;
+}
+
+.falaiseAlerte {
+  background: #fff3e0;
+  color: #b85c00;
+}
+
+.falaiseUrgent {
+  background: #fdecea;
+  color: #b02a18;
+}

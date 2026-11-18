@@ -18,4 +18,8 @@ test("Démo : le cas passant", async ({ page }) => {
     await expect(page.getByText("Coordinatrice de terrain")).toBeVisible();
     await expect(page.getByText("Ville de Paris · 100 %")).toBeVisible();
   });
+
+  await test.step("Je vois la date de falaise de chaque poste", async () => {
+    await expect(page.getByText("Date de falaise → 30 nov. 2026")).toBeVisible();
+  });
 });

@@ -9,6 +9,7 @@ export type Poste = {
   etp: number;
   coutAnnuel: number;
   financeurs: Financeur[];
+  dateFalaise: string;
 };
 
 export type Projet = {
@@ -37,6 +38,17 @@ export function quotePartDepassee(poste: Poste): boolean {
   return sommeQuotesParts(poste) > 100;
 }
 
+export type StatutFalaise = "ok" | "alerte" | "urgent";
+
+export function statutFalaise(dateFalaise: string, aujourdHui: Date = new Date()): StatutFalaise {
+  const joursRestants = Math.ceil(
+    (new Date(dateFalaise).getTime() - aujourdHui.getTime()) / (1000 * 60 * 60 * 24),
+  );
+  if (joursRestants <= 60) return "urgent";
+  if (joursRestants <= 180) return "alerte";
+  return "ok";
+}
+
 export const projets: Projet[] = [
   {
     id: "carillon-idf",
@@ -52,6 +64,7 @@ export const projets: Projet[] = [
         etp: 0.8,
         coutAnnuel: 34200,
         financeurs: [{ nom: "Ville de Paris", pct: 100 }],
+        dateFalaise: "2027-12-31",
       },
       {
         id: "responsable-antenne",
@@ -62,6 +75,7 @@ export const projets: Projet[] = [
           { nom: "Ville de Paris", pct: 30 },
           { nom: "Fondation SNCF", pct: 25 },
         ],
+        dateFalaise: "2027-01-31",
       },
       {
         id: "volontaire-service-civique",
@@ -72,6 +86,7 @@ export const projets: Projet[] = [
           { nom: "Fondation SNCF", pct: 60 },
           { nom: "Mécénat entreprise", pct: 40 },
         ],
+        dateFalaise: "2026-11-30",
       },
     ],
   },
@@ -92,6 +107,7 @@ export const projets: Projet[] = [
           { nom: "Fondation Total", pct: 70 },
           { nom: "Région Île-de-France", pct: 30 },
         ],
+        dateFalaise: "2027-09-30",
       },
       {
         id: "charge-partenariats",
@@ -99,6 +115,7 @@ export const projets: Projet[] = [
         etp: 0.6,
         coutAnnuel: 19800,
         financeurs: [{ nom: "Région Île-de-France", pct: 100 }],
+        dateFalaise: "2027-03-31",
       },
     ],
   },
@@ -116,6 +133,7 @@ export const projets: Projet[] = [
         etp: 1,
         coutAnnuel: 32000,
         financeurs: [{ nom: "CAF Paris", pct: 50 }],
+        dateFalaise: "2026-12-15",
       },
       {
         id: "psychologue",
@@ -123,6 +141,7 @@ export const projets: Projet[] = [
         etp: 0.5,
         coutAnnuel: 21000,
         financeurs: [{ nom: "Fondation de France", pct: 40 }],
+        dateFalaise: "2027-02-28",
       },
       {
         id: "coordinateur",
@@ -133,6 +152,7 @@ export const projets: Projet[] = [
           { nom: "CAF Paris", pct: 20 },
           { nom: "Fondation de France", pct: 20 },
         ],
+        dateFalaise: "2026-12-31",
       },
       {
         id: "agent-accueil",
@@ -140,6 +160,7 @@ export const projets: Projet[] = [
         etp: 1,
         coutAnnuel: 24000,
         financeurs: [],
+        dateFalaise: "2026-01-01",
       },
     ],
   },
@@ -161,6 +182,7 @@ export const projets: Projet[] = [
           { nom: "Fondation Bettencourt", pct: 30 },
           { nom: "Mécénat local", pct: 25 },
         ],
+        dateFalaise: "2027-10-31",
       },
       {
         id: "assistant-logistique",
@@ -168,6 +190,7 @@ export const projets: Projet[] = [
         etp: 0.5,
         coutAnnuel: 11000,
         financeurs: [{ nom: "Rectorat", pct: 100 }],
+        dateFalaise: "2026-12-10",
       },
     ],
   },

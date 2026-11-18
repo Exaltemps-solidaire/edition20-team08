@@ -117,7 +117,19 @@ L'écran "Qui êtes-vous ?" (persona, requis par le PRD) est reporté après le 
   - `frontend/src/app/projets/[id]/page.module.css` — styles des 3 états du badge.
 - **Tests unitaires prévus** : 1 à 3, sur `statutFalaise()` (un cas par niveau).
 - **Étapes ajoutées à la démo** : sur l'écran détail déjà ouvert, vérifier qu'un badge de date de falaise est visible sur au moins un poste.
-- **Bilan** : _à remplir en fin d'itération (durée de codage réelle, dépassement éventuel, fait, reporté, modifications fichier par fichier)_
+- **Bilan** :
+  - **Durée de codage réelle** : 1 minute (aucun dépassement, largement sous le budget de 8-10 min annoncé).
+  - **Critères d'acceptation** : les 3 sont satisfaits — chaque carte de poste affiche désormais sa date de falaise et un badge de statut ; les trois niveaux (ok vert, alerte orange, urgent rouge) sont visibles en vrai sur le projet "Carillon IDF" (31 déc. 2027 / 31 janv. 2027 / 30 nov. 2026, confirmé par `curl` sur le déploiement) ; `statutFalaise()` est couvert par 3 tests unitaires (ok, alerte, urgent/dépassée).
+  - **Reporté** : rien de prévu n'a été reporté.
+  - **Ce que le harnais a bloqué ou refusé** : rien — aucune borne de déployabilité, `npm test` passait (12 tests au total, dont 3 nouveaux sur `statutFalaise`), `signaler-version.sh 3` a abouti du premier coup.
+  - **Modifications** :
+    - `frontend/src/app/projets.ts` — champ `dateFalaise` par poste (12 postes), type `StatutFalaise` et fonction `statutFalaise()` (logique des 3 critères).
+    - `frontend/src/app/projets.test.ts` — 3 tests Vitest sur `statutFalaise()` (ok / alerte / urgent-dépassée), ajout de `dateFalaise` à l'helper `poste()` existant.
+    - `frontend/src/app/projets/[id]/page.tsx` — badge de date de falaise sur chaque carte de poste.
+    - `frontend/src/app/projets/[id]/page.module.css` — styles des 3 états du badge (`.falaiseOk/Alerte/Urgent`).
+    - `e2e/demo.spec.ts` — étape de démo ajoutée (hors DoD).
+
+**Replanification en fin d'itération 3 (2026-11-18)** — temps restant annoncé : ~20 minutes, soit exactement la capacité minimale d'une itération (10 codage + 5 publication + 5 tour de test), sans marge. ✂️ Après deux itérations terminées bien en dessous de leur budget (2 min puis 1 min de codage), le risque n'est plus le codage mais un imprévu de publication ou un tour de test qui déborde. Je ne découpe pas d'itération 4 : le temps restant sert à vérifier que l'itération 3 tient en ligne et à préparer le pitch, pas à du code nouveau.
 
 ## À venir (liste ordonnée, à détailler au fil de l'eau)
 
