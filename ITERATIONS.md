@@ -95,9 +95,33 @@ L'écran "Qui êtes-vous ?" (persona, requis par le PRD) est reporté après le 
 
 **`/planifier-iterations` rejoué (2026-11-18)** — temps restant confirmé : ~15 minutes ; tour de test de l'équipe : 5 minutes. Capacité minimale pour une itération = 10 (codage max) + 5 (publication) + 5 (test) = 20 minutes. 15 < 20 : **aucune itération 3 n'est découpée dans ce build.** Dernière itération déjà livrée (itération 2) : le temps restant sert à la stabilisation et à la préparation du pitch, pas à du code nouveau — conforme à la règle « quand le temps restant ne permet plus qu'une itération, elle sert à stabiliser ce qui sera montré au pitch » (ici, il ne permet même plus une itération complète avec tour de test, donc on s'arrête sur l'existant).
 
+**`/planifier-iterations` rejoué à nouveau (2026-11-18)** — le temps a été prolongé à ~25 minutes ; tour de test de l'équipe : 5 minutes. Capacité = 10 + 5 + 5 = 20 minutes minimum : **25 minutes permettent exactement une itération**, avec ~5 minutes de marge — pas deux. Une seule itération est donc détaillée ci-dessous (itération 3). **Source du plan** : proposé par l'agent (toujours aucun plan d'itérations dans la passation). Périmètre resserré sur le cœur de l'hypothèse mesurée par l'équipe (la date de falaise), en laissant la répartition mensuelle complète pour une session suivante — trop grosse pour les 10 minutes de codage disponibles ici.
+
+## Itération 3 : Chaque poste affiche sa date de falaise et son niveau d'urgence
+
+- **Dans le périmètre** :
+  - Ajout d'une date de falaise (fin de couverture financière) à chaque poste des données en dur.
+  - Calcul d'un statut (ok / alerte / urgent) à partir de la proximité de cette date — logique métier pure et testable.
+  - Affichage du statut sur la carte de poste déjà existante (écran détail du projet), sous forme de badge coloré, conforme au prototype (`.poste-falaise`, `.falaise-ok/warn/danger`).
+- **Hors périmètre** : répartition mois par mois des coûts, bannière d'alerte globale multi-projets (`.alert-falaise`), tableau de synthèse financière multi-postes, tri/filtre par urgence.
+- **Critères d'acceptation** (3 au plus) :
+  - Étant donné un poste avec une date de falaise, quand le détail du projet s'affiche, alors la date et son statut (ok/alerte/urgent) sont visibles sur la carte du poste.
+  - Étant donné une date de falaise proche ou dépassée, quand le statut est calculé, alors il se distingue visuellement (couleur) du cas d'une date lointaine.
+  - Étant donné la fonction de calcul du statut, quand elle est testée unitairement, alors les trois niveaux (ok/alerte/urgent) sont chacun couverts par un cas.
+- **Hypothèse de l'équipe couverte** : directement — "renouveler les conventions avant la date de falaise" est le second volet (avec le coût réel par poste) de l'hypothèse mesurée par l'équipe.
+- **Codage estimé** : 8 minutes (sous le plafond, pour garder de la marge sur les 25 minutes disponibles).
+- **Fichiers prévus** (~4, hors tests) :
+  - `frontend/src/app/projets.ts` — champ `dateFalaise` par poste, fonction `statutFalaise(poste)`.
+  - `frontend/src/app/projets.test.ts` — tests sur `statutFalaise()` (ok/alerte/urgent).
+  - `frontend/src/app/projets/[id]/page.tsx` — affichage du badge de statut.
+  - `frontend/src/app/projets/[id]/page.module.css` — styles des 3 états du badge.
+- **Tests unitaires prévus** : 1 à 3, sur `statutFalaise()` (un cas par niveau).
+- **Étapes ajoutées à la démo** : sur l'écran détail déjà ouvert, vérifier qu'un badge de date de falaise est visible sur au moins un poste.
+- **Bilan** : _à remplir en fin d'itération (durée de codage réelle, dépassement éventuel, fait, reporté, modifications fichier par fichier)_
+
 ## À venir (liste ordonnée, à détailler au fil de l'eau)
 
-1. Détail du poste : répartition mois par mois, taux de couverture, date de falaise — couvre directement l'hypothèse mesurée de l'équipe (équivalence chiffrable en 1 session). Candidat naturel pour l'itération 3 d'une prochaine session.
+1. Répartition mensuelle des coûts par poste, bannière d'alerte globale multi-projets, tableau de synthèse financière — complète le détail du poste au-delà de la date de falaise (itération 3). Pour une session suivante : trop gros pour un seul créneau de 10 minutes.
 2. Écran "Qui êtes-vous ?" (choix de persona sans connexion, bouton de changement de rôle) — à introduire quand l'app commence à distinguer ce que chaque rôle peut voir.
 3. Brancher la vue globale et le détail projet sur de vraies données (API + stockage), au lieu du codé en dur.
 4. Nouveau projet : formulaire de saisie (budget, financeurs, quotes-parts, postes, coûts), blocage si la somme dépasse 100 %.
